@@ -1,0 +1,1285 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical, open framework for structuring industrial automation systems">
+      
+      
+        <meta name="author" content="Simon Christiansen">
+      
+      
+        <link rel="canonical" href="https://thefactorystack.github.io/ILA/pages/08-standards-bridge/">
+      
+      
+        <link rel="prev" href="../07-layer5-otplatform/">
+      
+      
+        <link rel="next" href="../contributing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Standards Bridge - Industrial Layered Architecture (ILA)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/ila-dark.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ila-standards-bridge" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Industrial Layered Architecture (ILA)" class="md-header__button md-logo" aria-label="Industrial Layered Architecture (ILA)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Industrial Layered Architecture (ILA)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Standards Bridge
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/thefactorystack/ILA" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thefactorystack/ILA
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../02-getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../03-layer1-field/" class="md-tabs__link">
+          
+  
+  
+  Layers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Standards Bridge
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributing/" class="md-tabs__link">
+          
+  
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Industrial Layered Architecture (ILA)" class="md-nav__button md-logo" aria-label="Industrial Layered Architecture (ILA)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Industrial Layered Architecture (ILA)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/thefactorystack/ILA" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thefactorystack/ILA
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Layers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-layer1-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Field
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-layer2-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-layer3-supervisory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supervisory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-layer4-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-layer5-otplatform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OT Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards Bridge
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards Bridge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-document-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Document Exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isa-51-instrumentation-symbols-and-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA 5.1 — Instrumentation Symbols and Identification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packml-isa-tr880002-machine-state-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PackML / ISA-TR88.00.02 — Machine State Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isa-88-iec-61512-batch-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-88 / IEC 61512 — Batch Control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isa-101-human-machine-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-101 — Human Machine Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iec-62443-industrial-cybersecurity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEC 62443 — Industrial Cybersecurity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isa-95-iec-62264-enterprise-control-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-95 / IEC 62264 — Enterprise-Control Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opc-ua-iec-62541-data-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA / IEC 62541 — Data Exchange
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-where-ila-adds-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Where ILA Adds Value
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-document-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Document Exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isa-51-instrumentation-symbols-and-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA 5.1 — Instrumentation Symbols and Identification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packml-isa-tr880002-machine-state-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PackML / ISA-TR88.00.02 — Machine State Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isa-88-iec-61512-batch-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-88 / IEC 61512 — Batch Control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isa-101-human-machine-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-101 — Human Machine Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iec-62443-industrial-cybersecurity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEC 62443 — Industrial Cybersecurity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isa-95-iec-62264-enterprise-control-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-95 / IEC 62264 — Enterprise-Control Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opc-ua-iec-62541-data-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA / IEC 62541 — Data Exchange
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-where-ila-adds-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Where ILA Adds Value
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ila-standards-bridge">ILA Standards Bridge<a class="headerlink" href="#ila-standards-bridge" title="Permanent link">&para;</a></h1>
+<p><strong>What the standard says vs. what ILA decides.</strong></p>
+<hr />
+<h2 id="why-this-document-exists">Why This Document Exists<a class="headerlink" href="#why-this-document-exists" title="Permanent link">&para;</a></h2>
+<p>Industrial standards are written to be universally applicable. They define <em>what</em> should be achieved but deliberately avoid prescribing <em>how</em> — because every plant, every process, and every organization is different. This is a feature, not a bug. Standards need to be broad enough to apply to a refinery and a cookie factory.</p>
+<p>The problem: practitioners don't work in abstract, universally applicable environments. They work in specific plants with specific constraints, and they need concrete answers. "The recipe management architecture should be appropriate to the application" is technically correct and practically useless at 2 PM on a Tuesday when you need to decide where to put the recipe validation logic.</p>
+<p>ILA exists to fill that gap. It takes the standards seriously — and then makes the decisions that the standards intentionally leave open.</p>
+<p>This document maps each key standard to the specific, opinionated positions ILA takes.</p>
+<hr />
+<h2 id="isa-51-instrumentation-symbols-and-identification">ISA 5.1 — Instrumentation Symbols and Identification<a class="headerlink" href="#isa-51-instrumentation-symbols-and-identification" title="Permanent link">&para;</a></h2>
+<p><strong>What the standard says:</strong></p>
+<p>ISA 5.1 provides a system for identifying instruments and their functions. It defines letter codes for measured variables (T = Temperature, P = Pressure, F = Flow) and functional identifiers (I = Indicator, C = Controller, T = Transmitter). It allows for user-defined extensions and does not mandate a specific hierarchical structure beyond the tag number itself.</p>
+<p><strong>What ILA decides:</strong></p>
+<p>ILA enforces a specific hierarchical naming pattern: <code>{Area}_{Unit}_{DeviceType}{Seq}_{Attribute}</code>. This goes beyond ISA 5.1's scope — the standard does not require an Area-Unit hierarchy in the tag name itself. ILA does, because the tag name must serve as a physical address that is readable by a maintenance technician, traceable from the PLC through the historian, and consistent across all five layers.</p>
+<p>ILA also decides that tag names are in English — regardless of the plant's location. ISA 5.1 is silent on language. ILA takes the position that tags are a technical coordinate system, not prose, and a universal language prevents confusion in multi-national teams, vendor support interactions, and cross-site standardization.</p>
+<p>ILA further decides (Rule 1) that tag naming <em>is</em> architecture — meaning that a poorly named tag is an architectural defect, not a cosmetic issue. ISA 5.1 treats naming as documentation. ILA treats it as a structural decision with consequences in every layer.</p>
+<hr />
+<h2 id="packml-isa-tr880002-machine-state-model">PackML / ISA-TR88.00.02 — Machine State Model<a class="headerlink" href="#packml-isa-tr880002-machine-state-model" title="Permanent link">&para;</a></h2>
+<p><strong>What the standard says:</strong></p>
+<p>ISA-TR88.00.02 defines a 17-state model for packaging machines. It specifies the state names, the allowed transitions, and the general purpose of each state. It defines three modes (Automatic, Semi-Automatic, Manual). It does not prescribe which states are mandatory vs. optional, nor does it specify what logic should execute in each state — that is left to the implementer.</p>
+<p><strong>What ILA decides:</strong></p>
+<p>ILA divides the 17 states into 9 core states (Idle, Starting, Execute, Stopping, Stopped, Aborting, Aborted, Clearing, Resetting) and 8 optional states (Hold/Unhold, Suspend/Unsuspend, Completing/Complete). The standard makes no such distinction. ILA does, because implementing all 17 states on a simple pick-and-place machine adds testing surface, HMI complexity, and maintenance burden without process benefit.</p>
+<p>ILA decides that recipe validation happens in the Starting state — the PLC confirms that all recipe parameters are valid before transitioning to Execute. The standard does not prescribe this; it merely defines Starting as "the machine is preparing to execute." ILA fills in the specifics: Starting is where the Control Layer exercises Rule 5 by validating input from the Supervisory Layer.</p>
+<p>ILA also extends PackML beyond packaging. The standard was written for packaging machines, but ILA applies the state model to any machine — inspection cells, batch reactors, assembly stations. The state model works because the lifecycle (idle → prepare → run → stop → fault) is universal.</p>
+<hr />
+<h2 id="isa-88-iec-61512-batch-control">ISA-88 / IEC 61512 — Batch Control<a class="headerlink" href="#isa-88-iec-61512-batch-control" title="Permanent link">&para;</a></h2>
+<p><strong>What the standard says:</strong></p>
+<p>ISA-88 defines three models: the Physical Model (equipment hierarchy), the Procedural Model (recipe execution hierarchy), and the Process Model (process stages). It defines the separation between master recipes, control recipes, and equipment recipes. It specifies the concept of phases as the smallest unit of procedural control. It does not prescribe where recipe validation occurs, how recipes are transmitted to controllers, or which system has final authority over recipe acceptance.</p>
+<p><strong>What ILA decides:</strong></p>
+<p>ILA decides that the PLC (Layer 2) is the final authority on recipe acceptance. The Supervisory Layer (Layer 3) presents recipes and accepts operator input, but it cannot force a recipe onto the Control Layer. If the PLC rejects a recipe (missing parameters, out-of-range values, wrong equipment mode), that rejection is final until the operator corrects the issue. This is Rule 5 enforcement: the Control Layer dictates structure.</p>
+<p>ILA also decides the relationship between ISA-88 and PackML: they are complementary, not competing. PackML manages the machine state lifecycle; ISA-88 manages the recipe execution <em>within</em> the Execute state. ISA-88 is silent on machine state management; PackML is silent on recipe execution. ILA connects them explicitly.</p>
+<p>ILA maps the ISA-88 Physical Model to ILA tag naming. The Physical Model hierarchy (Area → Process Cell → Unit → Equipment Module → Control Module) directly informs the <code>{Area}_{Unit}_{DeviceType}</code> structure. The standard does not make this connection to tag naming — ILA does.</p>
+<hr />
+<h2 id="isa-101-human-machine-interfaces">ISA-101 — Human Machine Interfaces<a class="headerlink" href="#isa-101-human-machine-interfaces" title="Permanent link">&para;</a></h2>
+<p><strong>What the standard says:</strong></p>
+<p>ISA-101 establishes a framework for managing HMIs throughout their lifecycle: design, implementation, operation, and maintenance. It covers design philosophy, style guides, alarm integration, and user interface standards. It recommends a structured design process but does not mandate a specific visual style — it explicitly states that the style guide is site-specific.</p>
+<p><strong>What ILA decides:</strong></p>
+<p>ILA recommends high-performance HMI principles as the default. This means grayscale backgrounds, color reserved for abnormal states, analog indicators alongside numeric values, and minimal decorative elements. ISA-101 allows this as one valid approach among many. ILA makes it the starting point, with documented deviations where operator teams have strong, justified preferences for alternative styles.</p>
+<p>ILA decides (Rule 2) that HMI screens contain zero process logic. ISA-101 is primarily a design standard and does not explicitly address the boundary between display logic and control logic. ILA draws a hard line: if removing all SCADA scripting would change the machine's behavior, the architecture is wrong. ISA-101 concerns itself with how information is <em>presented</em>. ILA concerns itself with ensuring that nothing beyond presentation exists at Layer 3.</p>
+<p>ILA decides that the HMI screen hierarchy mirrors the PLC program structure (Rule 5). ISA-101 recommends a logical screen hierarchy but does not tie it to the control system structure. ILA does — because a screen that has no corresponding PLC program is either orphaned or hiding logic that belongs elsewhere.</p>
+<hr />
+<h2 id="iec-62443-industrial-cybersecurity">IEC 62443 — Industrial Cybersecurity<a class="headerlink" href="#iec-62443-industrial-cybersecurity" title="Permanent link">&para;</a></h2>
+<p><strong>What the standard says:</strong></p>
+<p>IEC 62443 is a comprehensive, multi-part standard covering organizational security (policies, procedures, training), system security (zones, conduits, security levels), and component security (device hardening, secure development). It defines the concept of zones (groups of assets with the same security level) and conduits (controlled communication paths between zones). It defines four Security Levels (SL 1–4). It requires a risk assessment to determine target security levels but does not prescribe specific network topologies or firewall rules.</p>
+<p><strong>What ILA decides:</strong></p>
+<p>ILA maps each of its five layers to an IEC 62443 zone, with Layer 1 and Layer 2 sharing a zone (because they require real-time, low-latency communication). This is a specific architectural decision — IEC 62443 does not dictate zone boundaries; it provides a methodology for determining them through risk assessment. ILA provides a default zone model that works for most industrial environments, with the expectation that high-risk sites may refine the boundaries through formal risk assessment.</p>
+<p>ILA decides that firewall rules physically enforce Rule 4 (data flows up, commands flow down). Specifically: Layer 4 (Data) is blocked from writing to Layer 2 (Control) at the network level. IEC 62443 would arrive at a similar conclusion through risk assessment, but ILA makes it an upfront architectural rule — not a finding from an assessment that may or may not be performed.</p>
+<p>ILA decides (Rule 3) that the OT team owns and operates the infrastructure. IEC 62443-2-1 addresses organizational responsibilities but does not prescribe whether IT or OT owns the OT network. ILA takes the position that OT owns it — because the people who understand the physical consequences of network decisions must be the people who make those decisions.</p>
+<p>ILA also decides that the OT team has final authority over incident response decisions that affect production systems. IEC 62443 requires an incident response capability but does not resolve the IT/OT authority boundary. ILA does: IT advises, OT decides, because only OT understands whether shutting down a system mid-process creates a safety hazard.</p>
+<hr />
+<h2 id="isa-95-iec-62264-enterprise-control-integration">ISA-95 / IEC 62264 — Enterprise-Control Integration<a class="headerlink" href="#isa-95-iec-62264-enterprise-control-integration" title="Permanent link">&para;</a></h2>
+<p><strong>What the standard says:</strong></p>
+<p>ISA-95 defines hierarchical levels for enterprise-to-control integration (the Purdue Model: Levels 0–5). It defines activity models for production, quality, maintenance, and inventory operations. It provides the B2MML (Business to Manufacturing Markup Language) data schema for structured data exchange between manufacturing operations and business systems. It defines the boundary between enterprise systems and manufacturing operations at Level 3/4.</p>
+<p><strong>What ILA decides:</strong></p>
+<p>ILA maps its five layers to Purdue levels but is not a 1:1 copy. ILA separates the Data Layer (Layer 4) from the Supervisory Layer (Layer 3), which ISA-95 groups together at Level 3. This separation matters because the data infrastructure has fundamentally different security requirements, operational patterns, and ownership than the SCADA systems. ISA-95 treats Level 3 as a single tier; ILA splits it to enforce clearer boundaries.</p>
+<p>ILA decides that MES integration happens at Layer 3 or Layer 4 — never directly to the PLC. ISA-95 defines the data exchange models but does not prohibit direct Level 4-to-Level 2 communication if the risk assessment allows it. ILA prohibits it as an architectural rule, because direct business-system-to-PLC connections create unaudited pathways that bypass operator awareness and Layer 3 validation.</p>
+<p>ILA decides that the local historian is always the source of truth, even when data is replicated to cloud platforms. ISA-95 does not address cloud architecture (it predates widespread cloud adoption in manufacturing). ILA fills this gap: cloud is a replica consumer, not an authority. If the cloud says one thing and the local historian says another, the local historian wins.</p>
+<hr />
+<h2 id="opc-ua-iec-62541-data-exchange">OPC UA / IEC 62541 — Data Exchange<a class="headerlink" href="#opc-ua-iec-62541-data-exchange" title="Permanent link">&para;</a></h2>
+<p><strong>What the standard says:</strong></p>
+<p>OPC UA defines a platform-independent, service-oriented architecture for secure, reliable data exchange. It supports information modeling (address space with nodes, references, and data types), security (certificate-based authentication, encryption), subscriptions (efficient data change notification), and historical data access. It does not prescribe how the address space should be organized — that is application-specific.</p>
+<p><strong>What ILA decides:</strong></p>
+<p>ILA decides that the OPC UA address space mirrors the PLC program structure and the ILA tag naming hierarchy. The standard allows any node structure; ILA prescribes one: <code>Root/{Area}/{Unit}/{Attribute}</code>. This means the OPC UA server is navigable by anyone who understands the ILA naming convention — no separate documentation needed to find a tag.</p>
+<p>ILA decides that the PLC is the OPC UA server, and Layers 3 and 4 are clients. The standard supports any topology (server, client, pub/sub, aggregation). ILA constrains it: the source of truth is the PLC, and it serves data upward. Aggregation servers are acceptable at Layer 4, but they aggregate — they do not modify or create new data that is written back down.</p>
+<p>ILA decides that OPC UA write access is restricted to Layer 3 (Supervisory) for operator commands only. Layer 4 (Data) has read-only access. The standard's security model supports this through user roles and access control, but it does not mandate it. ILA does — as a direct enforcement of Rule 4.</p>
+<hr />
+<h2 id="summary-where-ila-adds-value">Summary: Where ILA Adds Value<a class="headerlink" href="#summary-where-ila-adds-value" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Standard</th>
+<th>Leaves Open</th>
+<th>ILA Decides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ISA 5.1</td>
+<td>Tag structure and hierarchy</td>
+<td><code>{Area}_{Unit}_{Device}{Seq}_{Attr}</code>, English, hierarchical</td>
+</tr>
+<tr>
+<td>PackML</td>
+<td>Which states to implement, what happens in each</td>
+<td>9 core + 8 optional, recipe validation in Starting</td>
+</tr>
+<tr>
+<td>ISA-88</td>
+<td>Where recipe validation occurs, relationship to state model</td>
+<td>PLC validates (Rule 5), ISA-88 runs inside PackML Execute</td>
+</tr>
+<tr>
+<td>ISA-101</td>
+<td>Visual style, logic boundary</td>
+<td>High-performance default, zero logic in SCADA (Rule 2)</td>
+</tr>
+<tr>
+<td>IEC 62443</td>
+<td>Zone boundaries, IT/OT ownership</td>
+<td>1:1 layer-to-zone mapping, OT owns the stack (Rule 3)</td>
+</tr>
+<tr>
+<td>ISA-95</td>
+<td>Cloud architecture, direct PLC access</td>
+<td>Local historian is truth, no direct MES-to-PLC (Rule 4)</td>
+</tr>
+<tr>
+<td>OPC UA</td>
+<td>Address space structure, access control</td>
+<td>Mirrors PLC structure, Layer 4 is read-only (Rule 4)</td>
+</tr>
+</tbody>
+</table>
+<p>The pattern is consistent: <strong>standards define the playing field, ILA makes the calls.</strong> ILA's five rules are the decisions that practitioners would otherwise make inconsistently, implicitly, or not at all — and the cost of not making them is an architecture that nobody can explain, debug, or maintain.</p>
+<hr />
+<p><em>Back to <a href="../01-overview/">ILA Overview</a></em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <strong>ILA</strong> is published under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> · 
+Built by <a href="https://github.com/simonchr" target="_blank">Simon Christiansen</a> · 
+<a href="https://github.com/thefactorystack/ILA" target="_blank">GitHub</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

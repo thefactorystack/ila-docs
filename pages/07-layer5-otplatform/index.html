@@ -1,0 +1,1839 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical, open framework for structuring industrial automation systems">
+      
+      
+        <meta name="author" content="Simon Christiansen">
+      
+      
+        <link rel="canonical" href="https://thefactorystack.github.io/ILA/pages/07-layer5-otplatform/">
+      
+      
+        <link rel="prev" href="../06-layer4-data/">
+      
+      
+        <link rel="next" href="../08-standards-bridge/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>OT Platform - Industrial Layered Architecture (ILA)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/ila-dark.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ila-layer-5-ot-platform" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Industrial Layered Architecture (ILA)" class="md-header__button md-logo" aria-label="Industrial Layered Architecture (ILA)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Industrial Layered Architecture (ILA)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OT Platform
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/thefactorystack/ILA" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thefactorystack/ILA
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../02-getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../03-layer1-field/" class="md-tabs__link">
+          
+  
+  
+  Layers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../08-standards-bridge/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Standards Bridge
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributing/" class="md-tabs__link">
+          
+  
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Industrial Layered Architecture (ILA)" class="md-nav__button md-logo" aria-label="Industrial Layered Architecture (ILA)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Industrial Layered Architecture (ILA)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/thefactorystack/ILA" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thefactorystack/ILA
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Layers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-layer1-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Field
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-layer2-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-layer3-supervisory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supervisory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-layer4-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OT Platform
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OT Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-belongs-in-layer-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Layer 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-not-belong-in-layer-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Does NOT Belong in Layer 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Standards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iec-62443-industrial-cybersecurity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEC 62443 — Industrial Cybersecurity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isa-95-iec-62264-the-purdue-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-95 / IEC 62264 — The Purdue Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vlan-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VLAN Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-address-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IP Address Scheme
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centralized-authentication-adldap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Centralized Authentication (AD/LDAP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtualization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time Synchronization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Patch Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ot-monitoring-and-anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OT Monitoring and Anomaly Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incident-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incident Response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-site-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Site Considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-standards-bridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards Bridge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-belongs-in-layer-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Layer 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-not-belong-in-layer-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Does NOT Belong in Layer 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Standards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iec-62443-industrial-cybersecurity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEC 62443 — Industrial Cybersecurity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isa-95-iec-62264-the-purdue-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-95 / IEC 62264 — The Purdue Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vlan-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VLAN Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-address-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IP Address Scheme
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centralized-authentication-adldap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Centralized Authentication (AD/LDAP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtualization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time Synchronization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Patch Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ot-monitoring-and-anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OT Monitoring and Anomaly Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incident-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incident Response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-site-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Site Considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ila-layer-5-ot-platform">ILA Layer 5 — OT Platform<a class="headerlink" href="#ila-layer-5-ot-platform" title="Permanent link">&para;</a></h1>
+<p><strong>Network infrastructure, firewalls, AD/LDAP, virtualization, backup — the foundation everything runs on.</strong></p>
+<hr />
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>The OT Platform Layer is the infrastructure that enables every other layer to function. It provides the network, the servers, the authentication, and the security boundaries. When this layer is neglected, the entire stack is fragile, insecure, and unmaintainable.</p>
+<p>This layer is governed most directly by <strong>ILA Rule 3: OT owns the stack / Security is everyone's job.</strong></p>
+<h2 id="what-belongs-in-layer-5">What Belongs in Layer 5<a class="headerlink" href="#what-belongs-in-layer-5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Network switches, routers, and firewalls (OT-specific)</li>
+<li>Network segmentation and VLAN design</li>
+<li>OT firewalls and DMZ architecture</li>
+<li>Active Directory / LDAP for centralized authentication</li>
+<li>Virtualization hosts and hypervisors</li>
+<li>Server infrastructure (physical and virtual)</li>
+<li>Backup and disaster recovery systems</li>
+<li>Time synchronization (NTP/PTP)</li>
+<li>Patch management (OT-appropriate cadence)</li>
+<li>Certificate management (for OPC UA, HTTPS, VPN)</li>
+</ul>
+<h2 id="what-does-not-belong-in-layer-5">What Does NOT Belong in Layer 5<a class="headerlink" href="#what-does-not-belong-in-layer-5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>PLC programs or process logic (that is Layer 2)</li>
+<li>SCADA applications (that is Layer 3)</li>
+<li>Historian or database applications (that is Layer 4)</li>
+<li>Business IT infrastructure (ERP, email, corporate network)</li>
+</ul>
+<h2 id="key-standards">Key Standards<a class="headerlink" href="#key-standards" title="Permanent link">&para;</a></h2>
+<h3 id="iec-62443-industrial-cybersecurity">IEC 62443 — Industrial Cybersecurity<a class="headerlink" href="#iec-62443-industrial-cybersecurity" title="Permanent link">&para;</a></h3>
+<p>IEC 62443 is the defining standard for OT cybersecurity. It provides a comprehensive framework covering organization, system, and component security across the entire lifecycle.</p>
+<p><strong>IEC 62443 structure:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Scope</th>
+<th>ILA Relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>62443-1-x</td>
+<td>General concepts, terminology</td>
+<td>Foundation for security discussions</td>
+</tr>
+<tr>
+<td>62443-2-x</td>
+<td>Policies and procedures</td>
+<td>OT security governance, patch management</td>
+</tr>
+<tr>
+<td>62443-3-x</td>
+<td>System security</td>
+<td>Zone/conduit design, security levels</td>
+</tr>
+<tr>
+<td>62443-4-x</td>
+<td>Component security</td>
+<td>PLC, SCADA, device hardening</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Zones and Conduits:</strong></p>
+<p>IEC 62443 defines the concept of <em>zones</em> (groups of assets with the same security level) and <em>conduits</em> (communication paths between zones with defined security controls).</p>
+<p><strong>Mapping ILA layers to IEC 62443 zones:</strong></p>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────┐
+│  Enterprise Zone (IT)                       │
+│  ERP, email, business systems               │
+│  ── NOT part of ILA ──                      │
+├─────────── DMZ / Firewall ──────────────────┤
+│  OT DMZ                                     │
+│  Historian replica, remote access gateway    │
+├─────────── OT Firewall ────────────────────┤
+│  ILA Layer 5 — OT Platform Zone             │
+│  AD/LDAP, virtualization, NTP, backup       │
+├─────────────────────────────────────────────┤
+│  ILA Layer 4 — Data Zone                    │
+│  Historian, MQTT broker, SQL databases      │
+├─────────────────────────────────────────────┤
+│  ILA Layer 3 — Supervisory Zone             │
+│  SCADA servers, HMI clients                 │
+├─────────────────────────────────────────────┤
+│  ILA Layer 2 — Control Zone                 │
+│  PLCs, safety controllers, motion           │
+├─────────────────────────────────────────────┤
+│  ILA Layer 1 — Field Zone                   │
+│  Sensors, actuators, IO-Link, robots        │
+└─────────────────────────────────────────────┘
+</code></pre></div>
+<p><strong>Security Levels (SL):</strong></p>
+<p>IEC 62443 defines four security levels:</p>
+<table>
+<thead>
+<tr>
+<th>SL</th>
+<th>Protection Against</th>
+<th>Typical ILA Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SL 1</td>
+<td>Casual or coincidental violation</td>
+<td>Development/lab environments</td>
+</tr>
+<tr>
+<td>SL 2</td>
+<td>Intentional attack with low resources</td>
+<td>Standard production environments</td>
+</tr>
+<tr>
+<td>SL 3</td>
+<td>Sophisticated attack with moderate resources</td>
+<td>Critical infrastructure, regulated plants</td>
+</tr>
+<tr>
+<td>SL 4</td>
+<td>State-sponsored attack</td>
+<td>Rarely applied in full; aspirational</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ILA principle:</strong> Every zone must have a defined target security level. The security level drives decisions about authentication, network controls, monitoring, and hardening within that zone.</p>
+<h3 id="isa-95-iec-62264-the-purdue-model">ISA-95 / IEC 62264 — The Purdue Model<a class="headerlink" href="#isa-95-iec-62264-the-purdue-model" title="Permanent link">&para;</a></h3>
+<p>The Purdue Model (from ISA-95) defines hierarchical levels for enterprise-to-control integration. ILA layers align with but are not identical to Purdue levels.</p>
+<p><strong>Purdue-to-ILA mapping:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Purdue Level</th>
+<th>Description</th>
+<th>ILA Layer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Level 0</td>
+<td>Physical process</td>
+<td>Layer 1 (Field)</td>
+</tr>
+<tr>
+<td>Level 1</td>
+<td>Basic control (sensors, actuators, drives)</td>
+<td>Layer 1 / Layer 2 boundary</td>
+</tr>
+<tr>
+<td>Level 2</td>
+<td>Area supervisory control (PLCs, DCS)</td>
+<td>Layer 2 (Control)</td>
+</tr>
+<tr>
+<td>Level 3</td>
+<td>Site manufacturing operations (MES, historian)</td>
+<td>Layer 3 + Layer 4</td>
+</tr>
+<tr>
+<td>Level 3.5</td>
+<td>DMZ</td>
+<td>Layer 5 (OT Platform)</td>
+</tr>
+<tr>
+<td>Level 4-5</td>
+<td>Enterprise (IT)</td>
+<td>Outside ILA scope</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ILA principle:</strong> The Purdue Model provides the network segmentation rationale. ILA adds practical guidance for what goes in each zone and how layers communicate across boundaries.</p>
+<h2 id="network-design">Network Design<a class="headerlink" href="#network-design" title="Permanent link">&para;</a></h2>
+<h3 id="vlan-design">VLAN Design<a class="headerlink" href="#vlan-design" title="Permanent link">&para;</a></h3>
+<p>Every ILA layer should be on its own VLAN (or set of VLANs for larger plants). Inter-VLAN traffic is controlled by a firewall — not just a router.</p>
+<p><strong>Recommended VLAN structure:</strong></p>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>ILA Layer</th>
+<th>Purpose</th>
+<th>Example Subnet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Layer 1 + 2</td>
+<td>Field/Control network</td>
+<td>10.10.10.0/24</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Layer 3</td>
+<td>SCADA/HMI network</td>
+<td>10.10.20.0/24</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Layer 4</td>
+<td>Data/Historian network</td>
+<td>10.10.30.0/24</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Layer 5</td>
+<td>Infrastructure services</td>
+<td>10.10.40.0/24</td>
+</tr>
+<tr>
+<td>99</td>
+<td>DMZ</td>
+<td>IT/OT boundary</td>
+<td>10.10.99.0/24</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ILA principle:</strong> Layer 1 (field devices) and Layer 2 (PLCs) share a network segment because they need real-time, low-latency communication. All other layers are separated by firewall rules.</p>
+<p><strong>Firewall rules follow ILA data flow (Rule 4):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Destination</th>
+<th>Direction</th>
+<th>Allowed Traffic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layer 3 (SCADA)</td>
+<td>Layer 2 (PLC)</td>
+<td>Down</td>
+<td>OPC UA (write commands)</td>
+</tr>
+<tr>
+<td>Layer 2 (PLC)</td>
+<td>Layer 3 (SCADA)</td>
+<td>Up</td>
+<td>OPC UA (tag reads, subscriptions)</td>
+</tr>
+<tr>
+<td>Layer 2 (PLC)</td>
+<td>Layer 4 (Historian)</td>
+<td>Up</td>
+<td>OPC UA (tag reads)</td>
+</tr>
+<tr>
+<td>Layer 4 (Historian)</td>
+<td>Layer 2 (PLC)</td>
+<td><strong>Blocked</strong></td>
+<td>No writes from Layer 4 to Layer 2</td>
+</tr>
+<tr>
+<td>Layer 4 (Data)</td>
+<td>DMZ</td>
+<td>Up</td>
+<td>Controlled data replication</td>
+</tr>
+<tr>
+<td>Enterprise IT</td>
+<td>Layer 2</td>
+<td><strong>Blocked</strong></td>
+<td>Never direct IT-to-PLC access</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ip-address-scheme">IP Address Scheme<a class="headerlink" href="#ip-address-scheme" title="Permanent link">&para;</a></h3>
+<p><strong>ILA principle:</strong> Use a consistent IP addressing scheme that makes any device's layer and purpose identifiable from its IP address.</p>
+<p><strong>Pattern:</strong> <code>10.{site}.{layer*10}.{device}</code></p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>IP</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>10.1.10.101</code></td>
+<td>PLC 01, Site 1, Layer 1+2</td>
+<td>Control zone</td>
+</tr>
+<tr>
+<td><code>10.1.20.10</code></td>
+<td>SCADA Server, Site 1, Layer 3</td>
+<td>Supervisory zone</td>
+</tr>
+<tr>
+<td><code>10.1.30.10</code></td>
+<td>Historian, Site 1, Layer 4</td>
+<td>Data zone</td>
+</tr>
+<tr>
+<td><code>10.1.40.10</code></td>
+<td>AD Server, Site 1, Layer 5</td>
+<td>Infrastructure zone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="centralized-authentication-adldap">Centralized Authentication (AD/LDAP)<a class="headerlink" href="#centralized-authentication-adldap" title="Permanent link">&para;</a></h2>
+<p><strong>ILA principle:</strong> A single identity source (Active Directory or LDAP) provides authentication for all systems that support it.</p>
+<p><strong>Systems that should use centralized auth:</strong></p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Layer</th>
+<th>Auth Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCADA / Ignition</td>
+<td>3</td>
+<td>LDAP/AD integration</td>
+</tr>
+<tr>
+<td>Historian</td>
+<td>4</td>
+<td>AD service accounts</td>
+</tr>
+<tr>
+<td>SQL databases</td>
+<td>4</td>
+<td>AD-integrated authentication</td>
+</tr>
+<tr>
+<td>Firewalls</td>
+<td>5</td>
+<td>RADIUS / LDAP</td>
+</tr>
+<tr>
+<td>Hypervisor management</td>
+<td>5</td>
+<td>AD integration</td>
+</tr>
+<tr>
+<td>Windows VMs</td>
+<td>All</td>
+<td>Domain-joined</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Systems that typically cannot use centralized auth:</strong></p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Layer</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLCs</td>
+<td>2</td>
+<td>Most PLCs have local user management only</td>
+</tr>
+<tr>
+<td>Robots</td>
+<td>1</td>
+<td>Proprietary auth, no LDAP support</td>
+</tr>
+<tr>
+<td>Field devices</td>
+<td>1</td>
+<td>No auth capability or local only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ILA principle:</strong> Where centralized auth is not possible, document the local credentials securely, enforce password policies, and include these devices in security audits. This is an honest reflection of real OT environments — not every device supports AD integration, and pretending otherwise is dishonest.</p>
+<p><strong>Practical solutions for non-AD devices:</strong></p>
+<p>For the PLCs, robots, and field devices that cannot join Active Directory, use a Privileged Access Management (PAM) solution or a credential vault (e.g., CyberArk, HashiCorp Vault, or even a well-secured KeePass database as a minimum). The key requirements: credentials are stored encrypted, access is logged, and passwords are rotated on a defined schedule. No shared sticky notes on the HMI cabinet. No default passwords left from commissioning.</p>
+<p>For larger installations with hundreds of non-AD devices, consider a dedicated OT credential management workflow: a spreadsheet is not sufficient at scale. The PAM solution should support scheduled password rotation with change logging, role-based access (maintenance sees different credentials than engineering), break-glass procedures for emergency access during outages, and integration with your change management process.</p>
+<h2 id="virtualization">Virtualization<a class="headerlink" href="#virtualization" title="Permanent link">&para;</a></h2>
+<p>Virtualization is standard practice in modern OT. SCADA servers, historians, databases, and engineering workstations run as VMs on a shared hypervisor.</p>
+<p><strong>What should be virtualized:</strong></p>
+<ul>
+<li>SCADA servers (Layer 3)</li>
+<li>Historian and SQL servers (Layer 4)</li>
+<li>AD/LDAP servers (Layer 5)</li>
+<li>Engineering workstations</li>
+</ul>
+<p><strong>What should NOT be virtualized:</strong></p>
+<ul>
+<li>PLCs and safety controllers (Layer 2 — dedicated hardware)</li>
+<li>Field devices (Layer 1 — physical)</li>
+<li>Firewalls (dedicated appliance recommended; virtual firewall acceptable for lab/dev)</li>
+</ul>
+<p><strong>Backup strategy:</strong></p>
+<ul>
+<li>Full VM snapshots on a defined schedule (daily or before changes)</li>
+<li>Backup storage on a separate physical device or NAS</li>
+<li>Retain at least 3 rotation generations</li>
+<li>Test restores periodically — a backup you have never restored is not a backup</li>
+</ul>
+<h2 id="time-synchronization">Time Synchronization<a class="headerlink" href="#time-synchronization" title="Permanent link">&para;</a></h2>
+<p>Accurate time is critical for alarm sequencing, batch records, historian data correlation, and forensic analysis.</p>
+<p><strong>ILA time hierarchy:</strong></p>
+<div class="highlight"><pre><span></span><code>GPS / NTP external source
+    └── OT NTP server (Layer 5)
+        ├── SCADA servers (Layer 3)
+        ├── Historian (Layer 4)
+        ├── PLCs (Layer 2) — if NTP-capable
+        └── Domain controllers (Layer 5)
+</code></pre></div>
+<p><strong>ILA principle:</strong> One authoritative time source for the entire OT environment. All systems synchronize to the OT NTP server, not directly to the internet. PLCs that support NTP should use it; those that don't should be documented as potential drift risks.</p>
+<h2 id="patch-management">Patch Management<a class="headerlink" href="#patch-management" title="Permanent link">&para;</a></h2>
+<p>OT patching follows a different cadence than IT. Unplanned downtime from a bad patch is as damaging as a security breach.</p>
+<p><strong>ILA patching principles:</strong></p>
+<ul>
+<li>Patch OT systems on a quarterly or semi-annual cycle, not monthly</li>
+<li>Test all patches in a staging/lab environment before production deployment</li>
+<li>Coordinate patches with planned maintenance windows</li>
+<li>Document all patches applied, including rollback procedures</li>
+<li>Prioritize patches for internet-facing or DMZ systems</li>
+<li>Legacy systems that cannot be patched must have compensating controls (network isolation, enhanced monitoring)</li>
+</ul>
+<h2 id="ot-monitoring-and-anomaly-detection">OT Monitoring and Anomaly Detection<a class="headerlink" href="#ot-monitoring-and-anomaly-detection" title="Permanent link">&para;</a></h2>
+<p>Prevention alone is not sufficient. IEC 62443 assumes breach will happen — detection and response are equally important.</p>
+<p><strong>What to monitor in an OT environment:</strong></p>
+<ul>
+<li><strong>Network traffic:</strong> Baseline normal traffic patterns (which devices talk to which, on which ports, at what volume). Anomalies — a PLC suddenly communicating with an unknown IP, or a historian initiating outbound connections it has never made before — are high-priority alerts.</li>
+<li><strong>OPC UA sessions:</strong> Monitor for unexpected client connections to PLC OPC UA servers. An unknown client connecting to your PLC is a potential compromise.</li>
+<li><strong>Authentication events:</strong> Failed login attempts on SCADA, AD, firewalls, and VPN. Brute-force patterns are early indicators.</li>
+<li><strong>Configuration changes:</strong> PLC program downloads, firmware updates, firewall rule changes. All must be logged and correlated with authorized change windows.</li>
+<li><strong>USB and removable media:</strong> Detect USB device insertions on engineering workstations and HMI terminals.</li>
+</ul>
+<p><strong>Tools:</strong> OT-specific monitoring platforms (Claroty, Nozomi Networks, Dragos) provide passive network monitoring purpose-built for industrial protocols. For smaller environments, a combination of firewall logging, Syslog aggregation, and Wireshark-based audits provides baseline visibility. The key is that <em>something</em> is watching — not that it is expensive.</p>
+<p><strong>ILA principle:</strong> OT monitoring is a Layer 5 responsibility. Monitoring agents must never impact real-time control performance. Use passive/span-port monitoring for control network traffic — never inline inspection that could add latency to PLC communication.</p>
+<h2 id="incident-response">Incident Response<a class="headerlink" href="#incident-response" title="Permanent link">&para;</a></h2>
+<p>When a security incident occurs — a detected breach, a ransomware infection, an unauthorized PLC program change — the OT team must have a pre-defined response plan.</p>
+<p><strong>ILA incident response principles:</strong></p>
+<p><strong>Who decides:</strong> The OT team has final authority over the decision to take production systems offline. IT security may advise, but the OT team understands the physical consequences of shutting down a process mid-cycle (e.g., a furnace that cannot be safely stopped, a chemical batch that will be ruined). This decision authority must be agreed with IT <em>before</em> an incident, not negotiated during one.</p>
+<p><strong>Isolation, not shutdown:</strong> The first response to a suspected network breach is to isolate the affected zone at the firewall — not to power off PLCs or abort running processes. Layer 2 devices should continue to operate safely in isolation while the incident is investigated.</p>
+<p><strong>Evidence preservation:</strong> Do not reimage or reboot affected systems before capturing forensic evidence. Take VM snapshots, export firewall logs, and preserve network captures. Coordinate with your incident response team or external forensic specialists.</p>
+<p><strong>Communication plan:</strong> Define who is notified (OT lead, IT security, plant management, and if required: regulatory bodies) and through which channels (not through the potentially compromised OT network).</p>
+<p><strong>Post-incident:</strong> Conduct a root cause analysis. Update firewall rules, credentials, and monitoring baselines. Document lessons learned and update the incident response plan.</p>
+<h2 id="multi-site-considerations">Multi-Site Considerations<a class="headerlink" href="#multi-site-considerations" title="Permanent link">&para;</a></h2>
+<p>For organizations operating multiple plants, Layer 5 must address standardization across sites.</p>
+<p><strong>Tag naming across sites:</strong> Add a site prefix to the ILA tag naming convention: <code>{Site}_{Area}_{Unit}_{DeviceType}{Seq}_{Attribute}</code>. Example: <code>S01_IC01_CAM01_TriggerReq</code> (Site 01, Inspection Cell 01, Camera 01). This enables cross-site data aggregation at Layer 4 without naming collisions.</p>
+<p><strong>Network design across sites:</strong> Each site maintains its own OT network with its own firewall and DMZ. Inter-site communication for data replication (historian to cloud, cross-site dashboards) flows through site DMZs — never direct site-to-site OT network connections. Use site-to-site VPN or SD-WAN through the DMZ tier only.</p>
+<p><strong>Centralized vs. distributed AD:</strong> For multi-site environments, decide whether to run a single AD forest with site-specific domain controllers, or independent AD domains per site. ILA recommends site-local domain controllers at minimum — if the WAN link goes down, the site must continue to authenticate users locally.</p>
+<h2 id="practical-checklist">Practical Checklist<a class="headerlink" href="#practical-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] OT network is owned and operated by the OT team (Rule 3)</li>
+<li>[ ] IEC 62443 zones and conduits are defined and documented</li>
+<li>[ ] Each ILA layer is on a separate VLAN with firewall rules</li>
+<li>[ ] Firewall rules enforce Rule 4 (data up, commands down — Layer 4 cannot write to Layer 2)</li>
+<li>[ ] IP addressing scheme is consistent and self-documenting</li>
+<li>[ ] Centralized authentication (AD/LDAP) is used where possible</li>
+<li>[ ] Local credentials on PLCs and field devices are managed via PAM or credential vault</li>
+<li>[ ] VM backups run on a defined schedule with tested restores</li>
+<li>[ ] NTP is configured with a single authoritative OT time source</li>
+<li>[ ] Patch management follows an OT-appropriate cadence with testing</li>
+<li>[ ] DMZ exists between IT and OT networks</li>
+<li>[ ] Remote access is through a controlled gateway (VPN, jump host) — never direct</li>
+<li>[ ] OT network monitoring is deployed (passive, not inline on control network)</li>
+<li>[ ] OPC UA sessions, auth events, and config changes are logged and reviewed</li>
+<li>[ ] Incident response plan exists with clear OT team decision authority</li>
+<li>[ ] IT and OT have pre-agreed escalation and isolation procedures</li>
+<li>[ ] <em>Multi-site:</em> Tag naming includes site prefix for cross-site consistency</li>
+<li>[ ] <em>Multi-site:</em> Each site has local AD domain controllers for WAN-independent auth</li>
+<li>[ ] <em>Multi-site:</em> Inter-site data flows through DMZ only — no direct OT-to-OT links</li>
+</ul>
+<hr />
+<p><em>Back to <a href="../01-overview/">ILA Overview</a> | Previous: <a href="../06-layer4-data/">Layer 4 — Data</a></em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <strong>ILA</strong> is published under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> · 
+Built by <a href="https://github.com/simonchr" target="_blank">Simon Christiansen</a> · 
+<a href="https://github.com/thefactorystack/ILA" target="_blank">GitHub</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

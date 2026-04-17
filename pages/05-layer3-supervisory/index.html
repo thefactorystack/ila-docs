@@ -1,0 +1,1460 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical, open framework for structuring industrial automation systems">
+      
+      
+        <meta name="author" content="Simon Christiansen">
+      
+      
+        <link rel="canonical" href="https://thefactorystack.github.io/ILA/pages/05-layer3-supervisory/">
+      
+      
+        <link rel="prev" href="../04-layer2-control/">
+      
+      
+        <link rel="next" href="../06-layer4-data/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Supervisory - Industrial Layered Architecture (ILA)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/ila-dark.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ila-layer-3-supervisory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Industrial Layered Architecture (ILA)" class="md-header__button md-logo" aria-label="Industrial Layered Architecture (ILA)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Industrial Layered Architecture (ILA)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Supervisory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/thefactorystack/ILA" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thefactorystack/ILA
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../02-getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../03-layer1-field/" class="md-tabs__link">
+          
+  
+  
+  Layers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../08-standards-bridge/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Standards Bridge
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributing/" class="md-tabs__link">
+          
+  
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Industrial Layered Architecture (ILA)" class="md-nav__button md-logo" aria-label="Industrial Layered Architecture (ILA)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Industrial Layered Architecture (ILA)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/thefactorystack/ILA" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thefactorystack/ILA
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Layers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-layer1-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Field
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-layer2-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supervisory
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supervisory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-belongs-in-layer-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Layer 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-not-belong-in-layer-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Does NOT Belong in Layer 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ila-rule-2-no-programming-in-scada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ILA Rule 2 — No Programming in SCADA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Standards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#isa-101-hmi-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-101 — HMI Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packml-hmi-state-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PackML HMI State Visualization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isa-88-recipe-management-at-the-supervisory-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-88 — Recipe Management at the Supervisory Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alarm-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alarm Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mes-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MES Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regulated-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regulated Environments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-layer4-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-layer5-otplatform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OT Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-standards-bridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards Bridge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-belongs-in-layer-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Layer 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-not-belong-in-layer-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Does NOT Belong in Layer 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ila-rule-2-no-programming-in-scada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ILA Rule 2 — No Programming in SCADA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Standards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#isa-101-hmi-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-101 — HMI Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packml-hmi-state-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PackML HMI State Visualization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isa-88-recipe-management-at-the-supervisory-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-88 — Recipe Management at the Supervisory Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alarm-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alarm Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mes-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MES Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regulated-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regulated Environments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ila-layer-3-supervisory">ILA Layer 3 — Supervisory<a class="headerlink" href="#ila-layer-3-supervisory" title="Permanent link">&para;</a></h1>
+<p><strong>SCADA, HMI, MES integration points — visualization and operator interaction, not logic.</strong></p>
+<hr />
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>The Supervisory Layer is the operator's window into the process. It displays state, accepts commands, manages alarms, and provides the interface between human decisions and machine execution. It is governed most directly by <strong>ILA Rule 2: No programming in SCADA.</strong></p>
+<p>This is the layer where the temptation to add "just a little logic" is greatest — and where the cost of doing so is highest.</p>
+<h2 id="what-belongs-in-layer-3">What Belongs in Layer 3<a class="headerlink" href="#what-belongs-in-layer-3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>HMI / SCADA runtime screens</li>
+<li>Alarm management and notification</li>
+<li>Operator command inputs (start, stop, reset, recipe selection)</li>
+<li>Recipe entry and parameter display</li>
+<li>Production dashboards and status overviews</li>
+<li>MES integration points (work order receipt, production reporting)</li>
+<li>Audit trails and electronic signatures (where required)</li>
+</ul>
+<h2 id="what-does-not-belong-in-layer-3">What Does NOT Belong in Layer 3<a class="headerlink" href="#what-does-not-belong-in-layer-3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Process logic, conditional branching, or calculations that determine machine behavior</li>
+<li>Timer-based sequencing or interlock logic</li>
+<li>Direct field device communication bypassing the Control Layer</li>
+<li>Data aggregation, trending calculations, or report generation (that is Layer 4)</li>
+</ul>
+<h2 id="ila-rule-2-no-programming-in-scada">ILA Rule 2 — No Programming in SCADA<a class="headerlink" href="#ila-rule-2-no-programming-in-scada" title="Permanent link">&para;</a></h2>
+<p>This rule is the defining principle of Layer 3. It exists because logic hidden in SCADA scripts is:</p>
+<ul>
+<li><strong>Invisible</strong> — PLC programmers don't see it during code reviews</li>
+<li><strong>Fragile</strong> — SCADA runtime updates can break or change script behavior silently</li>
+<li><strong>Unmaintainable</strong> — the next engineer doesn't know to look in SCADA for logic</li>
+<li><strong>Untestable</strong> — SCADA scripts rarely have structured testing or simulation</li>
+</ul>
+<p><strong>The test is simple:</strong> If you removed all SCADA scripting and replaced the HMI with a completely different platform, would the machine still function correctly? If the answer is no, you have logic in the wrong layer.</p>
+<p><strong>What is allowed in SCADA:</strong></p>
+<ul>
+<li>Display formatting (unit conversion for display purposes, color changes based on state)</li>
+<li>Navigation logic (screen changes, popup triggers)</li>
+<li>User input validation at the UI level (numeric range checks before sending to PLC)</li>
+<li>Alarm acknowledgment and shelving</li>
+</ul>
+<p><strong>What is NOT allowed in SCADA:</strong></p>
+<ul>
+<li>Calculating setpoints or derived values used by the process</li>
+<li>Conditional logic that determines equipment state or transitions</li>
+<li>Timer-based operations that affect production</li>
+<li>Writing directly to field devices (bypassing the PLC)</li>
+<li>Storing process-critical data only in SCADA (no PLC variable backing it)</li>
+</ul>
+<h2 id="key-standards">Key Standards<a class="headerlink" href="#key-standards" title="Permanent link">&para;</a></h2>
+<h3 id="isa-101-hmi-design">ISA-101 — HMI Design<a class="headerlink" href="#isa-101-hmi-design" title="Permanent link">&para;</a></h3>
+<p>ISA-101 (Human Machine Interfaces for Process Automation Systems) provides guidelines for designing effective, safe, and consistent operator interfaces.</p>
+<p><strong>Core principles relevant to ILA:</strong></p>
+<p><strong>High-performance HMI design:</strong>
+- Use grayscale backgrounds — color is reserved for abnormal conditions and alarms
+- Avoid decorative 3D graphics (realistic tank drawings, photographic backgrounds)
+- Display process values with context: current value, setpoint, operating range, alarm limits
+- Use analog indicators (bar graphs, trend sparklines) rather than just numeric displays
+- Navigation should follow the physical plant hierarchy (which aligns with Layer 2 structure — Rule 5)</p>
+<p><strong>A note on high-performance HMI:</strong> ILA recommends high-performance principles as the default starting point. They are well-supported by research and reduce operator error in alarm-heavy environments. However, operator teams in some facilities have strong preferences shaped by years of experience with specific visual styles. If you deviate from high-performance principles, document the rationale and ensure the deviation is a conscious team decision — not an accident of legacy screen design.</p>
+<p><strong>Screen hierarchy (aligned with Rule 5):</strong></p>
+<div class="highlight"><pre><span></span><code>Level 1: Plant Overview     — All areas, key KPIs, alarm summary
+Level 2: Area Overview      — All units in an area, state and status
+Level 3: Unit Detail        — Single unit, all instruments and controls
+Level 4: Device/Loop Detail — Single control loop, tuning, diagnostics
+</code></pre></div>
+<p><strong>ILA principle:</strong> This screen hierarchy maps directly to the PLC program structure defined in Layer 2. If the PLC has <code>PRG_Station01</code>, <code>PRG_Station02</code>, and <code>PRG_Station03</code>, Layer 3 has corresponding detail screens for each station. No orphan screens. No hidden logic screens.</p>
+<h3 id="packml-hmi-state-visualization">PackML HMI State Visualization<a class="headerlink" href="#packml-hmi-state-visualization" title="Permanent link">&para;</a></h3>
+<p>PackML provides a standardized way to display machine state on HMI screens. Every ILA-compliant machine should have a PackML faceplate showing:</p>
+<ul>
+<li>Current state (text and/or color-coded indicator)</li>
+<li>Available commands (only commands valid for the current state are active)</li>
+<li>Mode (Automatic / Semi-Automatic / Manual)</li>
+<li>Key counters (produced, rejected, cycles)</li>
+</ul>
+<p><strong>Command button behavior:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Current State</th>
+<th>Available Commands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle</td>
+<td>Start</td>
+</tr>
+<tr>
+<td>Execute</td>
+<td>Hold, Suspend, Stop</td>
+</tr>
+<tr>
+<td>Held</td>
+<td>Unhold, Stop</td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>Unsuspend, Stop</td>
+</tr>
+<tr>
+<td>Complete</td>
+<td>Reset</td>
+</tr>
+<tr>
+<td>Stopped</td>
+<td>Reset</td>
+</tr>
+<tr>
+<td>Aborted</td>
+<td>Clear</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ILA principle:</strong> The HMI reads <code>StateCurrent</code> from the PLC via OPC UA and enables/disables command buttons accordingly. The button logic is a simple state-to-button map — not a script that evaluates process conditions.</p>
+<h3 id="isa-88-recipe-management-at-the-supervisory-layer">ISA-88 — Recipe Management at the Supervisory Layer<a class="headerlink" href="#isa-88-recipe-management-at-the-supervisory-layer" title="Permanent link">&para;</a></h3>
+<p>In ISA-88 batch systems, the Supervisory Layer is responsible for:</p>
+<ul>
+<li>Presenting available recipes to the operator</li>
+<li>Accepting recipe parameter input</li>
+<li>Sending recipe parameters to the Control Layer</li>
+<li>Displaying batch progress and phase status</li>
+<li>Collecting batch records for Layer 4</li>
+</ul>
+<p><strong>ILA principle (Rule 5 enforcement):</strong> The operator selects and parameterizes a recipe at Layer 3. The recipe is sent to Layer 2, where the PLC validates it before accepting. If the PLC rejects the recipe (missing parameters, out-of-range values), Layer 3 displays the rejection reason. The SCADA never decides if a recipe is valid.</p>
+<p><strong>Workflow:</strong></p>
+<div class="highlight"><pre><span></span><code>Operator selects recipe          → Layer 3
+Layer 3 sends recipe to PLC     → Layer 2 (via OPC UA)
+PLC validates recipe             → Layer 2 (Rule 5)
+PLC accepts/rejects              → Layer 2
+Layer 3 displays result          → Layer 3
+PLC enters Starting state        → Layer 2 (only if accepted)
+</code></pre></div>
+<h2 id="alarm-management">Alarm Management<a class="headerlink" href="#alarm-management" title="Permanent link">&para;</a></h2>
+<p>Alarm management is a Layer 3 responsibility, but alarm <em>detection</em> happens in Layer 2.</p>
+<p><strong>ILA alarm flow:</strong></p>
+<ol>
+<li>PLC detects alarm condition (Layer 2)</li>
+<li>PLC sets alarm tag to TRUE with priority and description</li>
+<li>SCADA reads alarm tag via OPC UA (Layer 3)</li>
+<li>SCADA presents alarm to operator with ISA-18.2 attributes</li>
+<li>Operator acknowledges alarm at Layer 3</li>
+<li>Alarm data is logged in historian (Layer 4)</li>
+</ol>
+<p><strong>ISA-18.2 alarm attributes (managed at Layer 3):</strong></p>
+<ul>
+<li>Priority (critical, high, medium, low, diagnostic)</li>
+<li>State (active/cleared, acknowledged/unacknowledged)</li>
+<li>Shelving (temporary suppression with automatic return)</li>
+<li>Alarm rationalization documentation</li>
+</ul>
+<p><strong>ILA principle:</strong> Alarm <em>conditions</em> are defined in PLC logic (Layer 2). Alarm <em>presentation</em>, priority classification, and operator response workflows are managed at Layer 3. Alarm <em>history</em> and trending are stored in Layer 4.</p>
+<h2 id="mes-integration">MES Integration<a class="headerlink" href="#mes-integration" title="Permanent link">&para;</a></h2>
+<p>Manufacturing Execution Systems (MES) interface with ILA at Layer 3 as a gateway between shop floor operations and business systems.</p>
+<p><strong>Typical MES data flows:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Data</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MES → Layer 3</td>
+<td>Work orders, production schedules</td>
+<td>"Produce 1000 units of Product A"</td>
+</tr>
+<tr>
+<td>Layer 3 → MES</td>
+<td>Production counts, quality data, batch records</td>
+<td>"Batch BR001 complete, 998 units produced"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ILA principle:</strong> MES integration happens at Layer 3 or Layer 4, never directly to the PLC. The SCADA acts as the translation layer between MES work orders and PLC recipe parameters.</p>
+<p><strong>Work order rejection flow:</strong> When the PLC rejects a work order (invalid product code, missing recipe, equipment not available), the rejection must flow back through Layer 3 to MES with a reason code. The MES must not retry indefinitely — the operator and the MES both need to see <em>why</em> the order was rejected so the root cause is resolved, not masked by retries.</p>
+<p><strong>ISA-95 activity models:</strong> ISA-95 defines standard activity models for production, quality, maintenance, and inventory operations. When integrating MES at Layer 3, use ISA-95 activity models to structure the data exchange — this makes MES integration vendor-independent and prevents building point-to-point interfaces that break when either system is upgraded.</p>
+<h2 id="regulated-environments">Regulated Environments<a class="headerlink" href="#regulated-environments" title="Permanent link">&para;</a></h2>
+<p>In regulated industries (pharmaceutical, food safety, medical devices), Layer 3 carries additional responsibilities defined by regulatory frameworks.</p>
+<p><strong>FDA 21 CFR Part 11 — Electronic Records and Signatures:</strong></p>
+<p>When your SCADA system generates electronic records (batch records, quality logs, production reports) or accepts electronic signatures (operator confirmations, recipe approvals), it must comply with 21 CFR Part 11. Key requirements at Layer 3:</p>
+<ul>
+<li><strong>Audit trails:</strong> Every operator action — recipe change, alarm acknowledgment, manual override — must be logged with timestamp, user identity, old value, new value, and reason for change. The audit trail must be tamper-evident and retained for the required period.</li>
+<li><strong>Electronic signatures:</strong> When an operator signs off on a batch or approves a deviation, the signature must be linked to the specific record, include the signer's identity, and record the date/time and meaning of the signature (e.g., "reviewed," "approved," "released").</li>
+<li><strong>Access control:</strong> Role-based access must prevent unauthorized changes. An operator who can run the process should not be able to modify recipes. A supervisor who can approve deviations should not be able to delete audit trail entries.</li>
+<li><strong>System validation:</strong> The SCADA system must be validated (IQ/OQ/PQ) to demonstrate that it functions as intended and that electronic records are trustworthy.</li>
+</ul>
+<p><strong>ILA principle:</strong> 21 CFR Part 11 compliance is a Layer 3 responsibility — the SCADA platform provides the audit trails, signatures, and access control. The PLC (Layer 2) enforces process logic regardless of regulatory context. Do not implement compliance logic in the PLC; it does not belong there.</p>
+<p><strong>Other regulatory frameworks:</strong> GMP (Good Manufacturing Practice), IEC 62304 (medical device software), and EU Annex 11 (computerized systems in pharmaceutical) impose similar requirements. The pattern is the same: audit, authenticate, validate — and keep all of it at Layer 3, not buried in PLC logic.</p>
+<h2 id="practical-checklist">Practical Checklist<a class="headerlink" href="#practical-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Zero process logic exists in SCADA scripts (Rule 2 — verified by review)</li>
+<li>[ ] HMI screen hierarchy mirrors the PLC program structure (Rule 5)</li>
+<li>[ ] PackML faceplate shows current state, available commands, and mode</li>
+<li>[ ] Command buttons are state-dependent (not always-enabled)</li>
+<li>[ ] High-performance HMI principles are followed (grayscale, no decorative 3D)</li>
+<li>[ ] Recipe entry sends parameters to PLC — PLC validates and accepts/rejects (Rule 5)</li>
+<li>[ ] Alarm detection is in the PLC; alarm presentation and management is in SCADA</li>
+<li>[ ] All SCADA tags trace back to defined PLC variables (no orphan tags)</li>
+<li>[ ] If the SCADA platform were replaced, the machine would continue to function</li>
+<li>[ ] MES work order rejection flows back with reason codes (no silent retries)</li>
+<li>[ ] <em>Regulated:</em> Audit trails capture every operator action with timestamp, user, old/new values</li>
+<li>[ ] <em>Regulated:</em> Electronic signatures are linked to specific records with signer identity</li>
+<li>[ ] <em>Regulated:</em> Role-based access control prevents unauthorized changes</li>
+<li>[ ] <em>Regulated:</em> SCADA system is validated (IQ/OQ/PQ) if generating electronic records</li>
+</ul>
+<hr />
+<p><em>Back to <a href="../01-overview/">ILA Overview</a> | Previous: <a href="../04-layer2-control/">Layer 2 — Control</a> | Next: <a href="../06-layer4-data/">Layer 4 — Data</a></em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <strong>ILA</strong> is published under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> · 
+Built by <a href="https://github.com/simonchr" target="_blank">Simon Christiansen</a> · 
+<a href="https://github.com/thefactorystack/ILA" target="_blank">GitHub</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

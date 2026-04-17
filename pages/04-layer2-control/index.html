@@ -1,0 +1,1518 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A practical, open framework for structuring industrial automation systems">
+      
+      
+        <meta name="author" content="Simon Christiansen">
+      
+      
+        <link rel="canonical" href="https://thefactorystack.github.io/ILA/pages/04-layer2-control/">
+      
+      
+        <link rel="prev" href="../03-layer1-field/">
+      
+      
+        <link rel="next" href="../05-layer3-supervisory/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Control - Industrial Layered Architecture (ILA)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/ila-dark.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ila-layer-2-control" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Industrial Layered Architecture (ILA)" class="md-header__button md-logo" aria-label="Industrial Layered Architecture (ILA)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Industrial Layered Architecture (ILA)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Control
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/thefactorystack/ILA" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thefactorystack/ILA
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../02-getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../03-layer1-field/" class="md-tabs__link">
+          
+  
+  
+  Layers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../08-standards-bridge/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Standards Bridge
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributing/" class="md-tabs__link">
+          
+  
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Industrial Layered Architecture (ILA)" class="md-nav__button md-logo" aria-label="Industrial Layered Architecture (ILA)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Industrial Layered Architecture (ILA)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/thefactorystack/ILA" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thefactorystack/ILA
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Layers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-layer1-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Field
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-belongs-in-layer-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Layer 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-not-belong-in-layer-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Does NOT Belong in Layer 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Standards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iec-61131-3-plc-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEC 61131-3 — PLC Programming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packml-isa-tr880002-machine-state-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PackML / ISA-TR88.00.02 — Machine State Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isa-88-iec-61512-batch-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-88 / IEC 61512 — Batch Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packml-and-isa-88-how-they-work-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PackML and ISA-88 — How They Work Together
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isa-51-tag-naming-at-the-control-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA 5.1 — Tag Naming at the Control Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opc-ua-server-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA Server Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-layer3-supervisory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supervisory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-layer4-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-layer5-otplatform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OT Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-standards-bridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards Bridge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-belongs-in-layer-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Belongs in Layer 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-not-belong-in-layer-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Does NOT Belong in Layer 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Standards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iec-61131-3-plc-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEC 61131-3 — PLC Programming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packml-isa-tr880002-machine-state-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PackML / ISA-TR88.00.02 — Machine State Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isa-88-iec-61512-batch-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA-88 / IEC 61512 — Batch Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packml-and-isa-88-how-they-work-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PackML and ISA-88 — How They Work Together
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isa-51-tag-naming-at-the-control-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISA 5.1 — Tag Naming at the Control Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opc-ua-server-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OPC UA Server Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ila-layer-2-control">ILA Layer 2 — Control<a class="headerlink" href="#ila-layer-2-control" title="Permanent link">&para;</a></h1>
+<p><strong>PLCs, safety controllers, motion controllers — the layer that owns the process logic and dictates the structure of everything above it.</strong></p>
+<hr />
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>The Control Layer is the heart of ILA. It is where process logic lives, where machine states are managed, and where the structure of the entire automation system is defined. Every other layer aligns to the decisions made here.</p>
+<p>This is the layer governed most directly by <strong>ILA Rule 5: Structure is dictated by the Control Layer.</strong></p>
+<h2 id="what-belongs-in-layer-2">What Belongs in Layer 2<a class="headerlink" href="#what-belongs-in-layer-2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>PLC programs (main process logic)</li>
+<li>Safety PLC programs (safety logic on safety-rated hardware)</li>
+<li>Motion controllers and motion profiles</li>
+<li>PackML state machines</li>
+<li>ISA-88 batch control logic</li>
+<li>Recipe validation logic</li>
+<li>OPC UA server configuration (exposing tags to higher layers)</li>
+<li>All process interlocks, sequencing, and timing</li>
+</ul>
+<h2 id="what-does-not-belong-in-layer-2">What Does NOT Belong in Layer 2<a class="headerlink" href="#what-does-not-belong-in-layer-2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>HMI/SCADA scripting (that is Layer 3)</li>
+<li>Database queries or historian writes (that is Layer 4)</li>
+<li>Network configuration (that is Layer 5)</li>
+</ul>
+<h2 id="key-standards">Key Standards<a class="headerlink" href="#key-standards" title="Permanent link">&para;</a></h2>
+<h3 id="iec-61131-3-plc-programming">IEC 61131-3 — PLC Programming<a class="headerlink" href="#iec-61131-3-plc-programming" title="Permanent link">&para;</a></h3>
+<p>IEC 61131-3 defines the five PLC programming languages: Structured Text (ST), Ladder Diagram (LD), Function Block Diagram (FBD), Sequential Function Chart (SFC), and Instruction List (IL, deprecated).</p>
+<p><strong>ILA recommendation:</strong> Use Structured Text (ST) as the primary language for new projects. It is version-control friendly, readable, and maps well to modern software practices. Use Ladder Diagram where mandated by local standards or maintenance team capabilities.</p>
+<p><strong>Program organization:</strong></p>
+<div class="highlight"><pre><span></span><code>Project
+├── Application
+│   ├── TaskConfig
+│   │   ├── MainTask (cyclic, e.g. 10 ms)
+│   │   └── SlowTask (cyclic, e.g. 100 ms)
+│   ├── POU (Program Organization Units)
+│   │   ├── PRG_Main           — Main program entry point
+│   │   ├── PRG_PackML         — PackML state machine
+│   │   ├── PRG_Station01      — Station 01 sequence
+│   │   ├── PRG_Station02      — Station 02 sequence
+│   │   ├── FB_Cylinder        — Reusable cylinder function block
+│   │   ├── FB_Motor           — Reusable motor function block
+│   │   └── FC_RecipeValidate  — Recipe validation function
+│   └── GVL (Global Variable Lists)
+│       ├── GVL_IO             — Physical IO mapping
+│       ├── GVL_PackML         — PackML state and command variables
+│       ├── GVL_HMI            — Variables exposed to Layer 3
+│       └── GVL_Recipe         — Recipe data structures
+</code></pre></div>
+<p><strong>ILA principle:</strong> The POU structure mirrors the physical machine. If the machine has three stations, the PLC has three station programs. The SCADA screen hierarchy, historian tag groups, and alarm groups all derive from this structure (Rule 5).</p>
+<h3 id="packml-isa-tr880002-machine-state-model">PackML / ISA-TR88.00.02 — Machine State Model<a class="headerlink" href="#packml-isa-tr880002-machine-state-model" title="Permanent link">&para;</a></h3>
+<p>PackML defines a standardized state model with 17 states that describe the lifecycle of a machine from idle to producing to faulted.</p>
+<p><strong>Why PackML matters for ILA:</strong> It provides a universal language for machine states. Whether you build packaging lines, inspection cells, or process plants, the state names and transitions are the same. This means Layer 3 (SCADA) can use consistent HMI faceplates, and Layer 4 (Data) can compare OEE across machines.</p>
+<p><strong>The 17 PackML states:</strong></p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle</td>
+<td>Acting</td>
+<td>Machine is powered, ready for a command</td>
+</tr>
+<tr>
+<td>Starting</td>
+<td>Acting</td>
+<td>Ramp-up sequence before production</td>
+</tr>
+<tr>
+<td>Execute</td>
+<td>Acting</td>
+<td>Normal production operation</td>
+</tr>
+<tr>
+<td>Completing</td>
+<td>Acting</td>
+<td>Finishing current work, no new work accepted</td>
+</tr>
+<tr>
+<td>Complete</td>
+<td>Wait</td>
+<td>Work is done, awaiting reset</td>
+</tr>
+<tr>
+<td>Resetting</td>
+<td>Acting</td>
+<td>Returning to Idle</td>
+</tr>
+<tr>
+<td>Holding</td>
+<td>Acting</td>
+<td>Controlled stop (internal condition, e.g. upstream starved)</td>
+</tr>
+<tr>
+<td>Held</td>
+<td>Wait</td>
+<td>Paused, awaiting un-hold</td>
+</tr>
+<tr>
+<td>Unholding</td>
+<td>Acting</td>
+<td>Resuming from Held</td>
+</tr>
+<tr>
+<td>Suspending</td>
+<td>Acting</td>
+<td>Controlled stop (external condition, e.g. downstream full)</td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>Wait</td>
+<td>Paused by external condition</td>
+</tr>
+<tr>
+<td>Unsuspending</td>
+<td>Acting</td>
+<td>Resuming from Suspended</td>
+</tr>
+<tr>
+<td>Stopping</td>
+<td>Acting</td>
+<td>Controlled shutdown</td>
+</tr>
+<tr>
+<td>Stopped</td>
+<td>Wait</td>
+<td>Machine stopped, requires reset to return to Idle</td>
+</tr>
+<tr>
+<td>Aborting</td>
+<td>Acting</td>
+<td>Emergency or fault shutdown</td>
+</tr>
+<tr>
+<td>Aborted</td>
+<td>Wait</td>
+<td>Machine aborted, requires clear to reach Stopped</td>
+</tr>
+<tr>
+<td>Clearing</td>
+<td>Acting</td>
+<td>Clearing faults, moving to Stopped</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Core vs. Optional States — Where to Start</strong></p>
+<p>Not every machine needs all 17 states. ILA divides them into core states (implement always) and optional states (implement when your process requires them):</p>
+<p><em>Core states (always implement):</em>  Idle, Starting, Execute, Stopping, Stopped, Aborting, Aborted, Clearing, Resetting. These nine states cover the full lifecycle of any machine — startup, production, controlled shutdown, and fault handling.</p>
+<p><em>Optional states — Hold/Unhold:</em>  Add these when the machine has <em>internal</em> pause conditions — for example, a feeder that runs empty while the machine can resume automatically once refilled. Hold means "I paused myself."</p>
+<p><em>Optional states — Suspend/Unsuspend:</em>  Add these when the machine has <em>external</em> pause conditions — for example, a downstream conveyor that is full and the machine must wait. Suspend means "something outside me caused me to pause."</p>
+<p><em>Optional states — Completing/Complete:</em>  Add these when the machine processes finite batches or work orders and needs to distinguish between "still running" and "finished the current job, awaiting new work."</p>
+<p><strong>Rule of thumb:</strong> Start with the 9 core states. Run the machine in simulation. If you find yourself inventing ad-hoc workarounds for pause/resume behavior, that is your signal to add Hold or Suspend. Do not add states preemptively — each state adds testing surface and HMI complexity.</p>
+<p><strong>Implementation pattern:</strong></p>
+<div class="highlight"><pre><span></span><code>CASE iState OF
+    STATE_IDLE:
+        IF bCmdStart AND bRecipeValid THEN   // Rule 5: validate before starting
+            iState := STATE_STARTING;
+        END_IF
+
+    STATE_STARTING:
+        // Ramp-up sequence
+        // Validate recipe data (Rule 5 enforcement)
+        IF bStartSequenceDone THEN
+            iState := STATE_EXECUTE;
+        END_IF
+
+    STATE_EXECUTE:
+        // Normal production
+        IF bCmdStop THEN
+            iState := STATE_STOPPING;
+        ELSIF bFaultDetected THEN
+            iState := STATE_ABORTING;
+        END_IF
+
+    // ... remaining states
+END_CASE
+</code></pre></div>
+<p><strong>ILA Rule 5 enforcement:</strong> Recipe validation happens in the <code>Starting</code> state. The Control Layer validates that the Supervisory Layer has provided a valid, complete recipe before the machine enters <code>Execute</code>. The SCADA never decides if a recipe is valid — it sends the recipe, and the PLC confirms or rejects it.</p>
+<h3 id="isa-88-iec-61512-batch-control">ISA-88 / IEC 61512 — Batch Control<a class="headerlink" href="#isa-88-iec-61512-batch-control" title="Permanent link">&para;</a></h3>
+<p>ISA-88 provides the framework for batch manufacturing with three core models:</p>
+<p><strong>Physical Model</strong> — describes the physical equipment hierarchy:</p>
+<div class="highlight"><pre><span></span><code>Enterprise → Site → Area → Process Cell → Unit → Equipment Module → Control Module
+</code></pre></div>
+<p><strong>Procedural Model</strong> — describes the recipe execution hierarchy:</p>
+<div class="highlight"><pre><span></span><code>Procedure → Unit Procedure → Operation → Phase
+</code></pre></div>
+<p><strong>Process Model</strong> — describes the process itself (stages and transitions).</p>
+<p><strong>Where ISA-88 meets ILA:</strong></p>
+<ul>
+<li>The Physical Model maps directly to ILA tag naming at Layer 1 and Layer 2</li>
+<li>The Procedural Model is implemented as PLC logic in Layer 2</li>
+<li>Recipe parameters are entered at Layer 3 (Supervisory) and validated at Layer 2 (Control)</li>
+<li>Batch records and process data flow to Layer 4 (Data)</li>
+</ul>
+<p><strong>Example: Brewery mashing process</strong></p>
+<div class="highlight"><pre><span></span><code>Physical:     BR01 → MASH01 → HLT01 (Hot Liquor Tank)
+                              MLT01 (Mash/Lauter Tun)
+                              BK01  (Boil Kettle)
+
+Procedural:   MashProcedure
+              ├── FillUnitProc
+              │   ├── FillOp
+              │   │   ├── OpenValvePhase
+              │   │   └── MonitorLevelPhase
+              ├── HeatUnitProc
+              │   ├── HeatOp
+              │   │   ├── RampTempPhase
+              │   │   └── HoldTempPhase
+              └── TransferUnitProc
+</code></pre></div>
+<h3 id="packml-and-isa-88-how-they-work-together">PackML and ISA-88 — How They Work Together<a class="headerlink" href="#packml-and-isa-88-how-they-work-together" title="Permanent link">&para;</a></h3>
+<p>A common source of confusion: PackML and ISA-88 are not alternatives. They solve different problems and run in parallel.</p>
+<p><strong>PackML</strong> manages <em>machine state</em> — is the unit idle, starting, executing, or faulted? It answers: "What is the machine doing right now?"</p>
+<p><strong>ISA-88</strong> manages <em>recipe execution</em> — which procedure is running, which phase is active, what parameters apply? It answers: "What is the machine making right now, and how far along is it?"</p>
+<p>In a batch machine (e.g., a brewery mash tun), the PackML state machine governs the unit's lifecycle: Idle → Starting → Execute → Completing → Complete. <em>Within</em> the Execute state, ISA-88's procedural model runs the recipe: FillPhase → HeatPhase → HoldPhase → TransferPhase. The PackML state machine provides the container; ISA-88 fills it with process content.</p>
+<p><strong>ILA principle:</strong> Every machine has a PackML state machine. Machines that execute recipes or batch processes <em>also</em> implement ISA-88 procedural control inside the Execute state. PackML is mandatory; ISA-88 is applied where the process demands it.</p>
+<p><strong>Modes:</strong> PackML defines three modes (Automatic, Semi-Automatic, Manual). ISA-88 adds recipe modes (e.g., recipe-controlled vs. operator-controlled phases). Both coexist — the PackML mode governs the machine, while ISA-88 mode governs the procedure. Document both in the PLC and expose both to Layer 3.</p>
+<h3 id="isa-51-tag-naming-at-the-control-layer">ISA 5.1 — Tag Naming at the Control Layer<a class="headerlink" href="#isa-51-tag-naming-at-the-control-layer" title="Permanent link">&para;</a></h3>
+<p>While ISA 5.1 tag naming is introduced at Layer 1 (Field), the Control Layer is where tag names are defined in the PLC program and exposed to every layer above.</p>
+<p><strong>ILA principle:</strong> The GVL (Global Variable List) in the PLC is the master tag registry. Every tag that appears on an HMI screen, in a historian, or in an alarm list must trace back to a defined variable in the Control Layer.</p>
+<p><strong>Naming discipline at Layer 2:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Layer 1 device</th>
+<th>Layer 3 use</th>
+<th>Layer 4 use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IC01_CAM01_TriggerReq</code></td>
+<td>Camera trigger signal</td>
+<td>Shown on operator HMI</td>
+<td>Logged in historian</td>
+</tr>
+<tr>
+<td><code>IC01_CAM01_InspResult</code></td>
+<td>Camera inspection result</td>
+<td>Pass/Fail display</td>
+<td>Quality trending</td>
+</tr>
+<tr>
+<td><code>BR01_TT01_Value</code></td>
+<td>Temperature transmitter</td>
+<td>Live temp display</td>
+<td>Batch record</td>
+</tr>
+</tbody>
+</table>
+<h2 id="opc-ua-server-configuration">OPC UA Server Configuration<a class="headerlink" href="#opc-ua-server-configuration" title="Permanent link">&para;</a></h2>
+<p>The Control Layer exposes its tags to higher layers via OPC UA (or equivalent). This is the boundary between Layer 2 and Layers 3/4.</p>
+<p><strong>ILA principle:</strong> The PLC's OPC UA server defines exactly which tags are visible to SCADA and historians. Not every internal PLC variable should be exposed — only those with a clear consumer in Layer 3 or Layer 4.</p>
+<p><strong>Recommended OPC UA node structure:</strong></p>
+<div class="highlight"><pre><span></span><code>Root
+├── IC01 (Inspection Cell 01)
+│   ├── PackML
+│   │   ├── StateCurrent
+│   │   ├── CmdStart
+│   │   ├── CmdStop
+│   │   └── CmdReset
+│   ├── CAM01
+│   │   ├── TriggerReq
+│   │   ├── InspResult
+│   │   └── PartCount
+│   └── Recipe
+│       ├── ActiveRecipeID
+│       ├── RecipeValid
+│       └── BatchID
+</code></pre></div>
+<h2 id="practical-checklist">Practical Checklist<a class="headerlink" href="#practical-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] PLC program structure mirrors the physical machine (Rule 5)</li>
+<li>[ ] PackML state machine is implemented with all relevant states</li>
+<li>[ ] Recipe validation happens in the Control Layer, not SCADA (Rule 5)</li>
+<li>[ ] ISA 5.1 tag naming is enforced in all GVLs</li>
+<li>[ ] OPC UA server exposes only the tags consumed by Layer 3 and Layer 4</li>
+<li>[ ] Safety logic runs on safety-rated hardware, not standard PLC</li>
+<li>[ ] Function blocks (FB_Cylinder, FB_Motor, etc.) are reusable and version-controlled</li>
+<li>[ ] Batch control follows ISA-88 models where applicable</li>
+<li>[ ] Every PLC variable that appears in SCADA or historian has a defined, documented purpose</li>
+</ul>
+<hr />
+<p><em>Back to <a href="../01-overview/">ILA Overview</a> | Previous: <a href="../03-layer1-field/">Layer 1 — Field</a> | Next: <a href="../05-layer3-supervisory/">Layer 3 — Supervisory</a></em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <strong>ILA</strong> is published under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> · 
+Built by <a href="https://github.com/simonchr" target="_blank">Simon Christiansen</a> · 
+<a href="https://github.com/thefactorystack/ILA" target="_blank">GitHub</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
